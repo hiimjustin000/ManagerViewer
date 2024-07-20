@@ -1,4 +1,4 @@
-#ifndef GEODE_IS_MACOS
+#ifdef GEODE_IS_WINDOWS
 #include <geode.custom-keybinds/include/Keybinds.hpp>
 #endif
 #include <imgui-cocos.hpp>
@@ -14,7 +14,7 @@ static void createAddressLabelWithCopyButton(const char* label, uintptr_t addres
 }
 
 $execute {
-    #ifndef GEODE_IS_MACOS
+    #ifdef GEODE_IS_WINDOWS
     using namespace keybinds;
 
     BindManager::get()->registerBindable({
