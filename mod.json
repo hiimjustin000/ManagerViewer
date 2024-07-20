@@ -24,7 +24,7 @@
             "id": "geode.custom-keybinds",
             "version": ">=v1.7.1",
             "importance": "required",
-            "platforms": ["win"]
+            "platforms": ["win", "android"]
         }
     ],
     "tags": [
