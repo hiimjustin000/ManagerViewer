@@ -16,10 +16,61 @@ private:
 
     uintptr_t m_gdBase = 0;
     uintptr_t m_cocosBase = 0;
+    uintptr_t m_achievementManager = -1;
+    uintptr_t m_achievementNotifier = -1;
+    uintptr_t m_appDelegate = -1;
+    uintptr_t m_bitmapFontCache = -1;
+    uintptr_t m_animateFrameCache = -1;
+    uintptr_t m_director = -1;
+    uintptr_t m_fileUtils = -1;
+    uintptr_t m_imeDispatcher = -1;
+    uintptr_t m_shaderCache = -1;
+    uintptr_t m_spriteFrameCache = -1;
+    uintptr_t m_textureCache = -1;
+    uintptr_t m_fmodAudioEngine = -1;
+    uintptr_t m_gameLevelManager = -1;
+    uintptr_t m_gameManager = -1;
+    uintptr_t m_gameStatsManager = -1;
+    uintptr_t m_accountManager = -1;
+    uintptr_t m_multiplayerManager = -1;
+    uintptr_t m_gjObjectDecoder = -1;
+    uintptr_t m_googlePlayManager = -1;
+    uintptr_t m_keybindingsManager = -1;
+    uintptr_t m_localLevelManager = -1;
+    uintptr_t m_musicDownloadManager = -1;
+    uintptr_t m_objectDecoder = -1;
+    uintptr_t m_objectToolbox = -1;
 public:
     static OffsetManager* get() {
         if (!instance) instance = new OffsetManager();
         return instance;
+    }
+
+    void refresh() {
+        m_achievementManager = -1;
+        m_achievementNotifier = -1;
+        m_appDelegate = -1;
+        m_bitmapFontCache = -1;
+        m_animateFrameCache = -1;
+        m_director = -1;
+        m_fileUtils = -1;
+        m_imeDispatcher = -1;
+        m_shaderCache = -1;
+        m_spriteFrameCache = -1;
+        m_textureCache = -1;
+        m_fmodAudioEngine = -1;
+        m_gameLevelManager = -1;
+        m_gameManager = -1;
+        m_gameStatsManager = -1;
+        m_accountManager = -1;
+        m_multiplayerManager = -1;
+        m_gjObjectDecoder = -1;
+        m_googlePlayManager = -1;
+        m_keybindingsManager = -1;
+        m_localLevelManager = -1;
+        m_musicDownloadManager = -1;
+        m_objectDecoder = -1;
+        m_objectToolbox = -1;
     }
 
     static uintptr_t dereference(uintptr_t ptr) { return *reinterpret_cast<uintptr_t*>(ptr); }

@@ -138,97 +138,97 @@
 #endif
 
 uintptr_t OffsetManager::achievementManager() {
-    return dereference(getGDOffset(ACHIEVEMENT_MANAGER_OFFSET));
+    return m_achievementManager != UINTPTR_MAX ? m_achievementManager : m_achievementManager = dereference(getGDOffset(ACHIEVEMENT_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::achievementNotifier() {
-    return dereference(getGDOffset(ACHIEVEMENT_NOTIFIER_OFFSET));
+    return m_achievementNotifier != UINTPTR_MAX ? m_achievementNotifier : m_achievementNotifier = dereference(getGDOffset(ACHIEVEMENT_NOTIFIER_OFFSET));
 }
 
 uintptr_t OffsetManager::appDelegate() {
-    return dereference(getCocosOffset(APP_DELEGATE_OFFSET));
+    return m_appDelegate != UINTPTR_MAX ? m_appDelegate : m_appDelegate = dereference(getCocosOffset(APP_DELEGATE_OFFSET));
 }
 
 uintptr_t OffsetManager::bitmapFontCache() {
-    return dereference(getGDOffset(BITMAP_FONT_CACHE_OFFSET));
+    return m_bitmapFontCache != UINTPTR_MAX ? m_bitmapFontCache : m_bitmapFontCache = dereference(getGDOffset(BITMAP_FONT_CACHE_OFFSET));
 }
 
 uintptr_t OffsetManager::animateFrameCache() {
-    return dereference(getGDOffset(CC_ANIMATE_FRAME_CACHE_OFFSET));
+    return m_animateFrameCache != UINTPTR_MAX ? m_animateFrameCache : m_animateFrameCache = dereference(getGDOffset(CC_ANIMATE_FRAME_CACHE_OFFSET));
 }
 
 uintptr_t OffsetManager::director() {
-    return dereference(getCocosOffset(CC_DIRECTOR_OFFSET));
+    return m_director != UINTPTR_MAX ? m_director : m_director = dereference(getCocosOffset(CC_DIRECTOR_OFFSET));
 }
 
 uintptr_t OffsetManager::fileUtils() {
-    return dereference(getCocosOffset(CC_FILE_UTILS_OFFSET));
+    return m_fileUtils != UINTPTR_MAX ? m_fileUtils : m_fileUtils = dereference(getCocosOffset(CC_FILE_UTILS_OFFSET));
 }
 
 uintptr_t OffsetManager::imeDispatcher() {
-    return dereference(getCocosOffset(CC_IME_DISPATCHER_OFFSET));
+    return m_imeDispatcher != UINTPTR_MAX ? m_imeDispatcher : m_imeDispatcher = dereference(getCocosOffset(CC_IME_DISPATCHER_OFFSET));
 }
 
 uintptr_t OffsetManager::shaderCache() {
-    return dereference(getCocosOffset(CC_SHADER_CACHE_OFFSET));
+    return m_shaderCache != UINTPTR_MAX ? m_shaderCache : m_shaderCache = dereference(getCocosOffset(CC_SHADER_CACHE_OFFSET));
 }
 
 uintptr_t OffsetManager::spriteFrameCache() {
-    return dereference(getCocosOffset(CC_SPRITE_FRAME_CACHE_OFFSET));
+    return m_spriteFrameCache != UINTPTR_MAX ? m_spriteFrameCache : m_spriteFrameCache = dereference(getCocosOffset(CC_SPRITE_FRAME_CACHE_OFFSET));
 }
 
 uintptr_t OffsetManager::textureCache() {
-    return dereference(getCocosOffset(CC_TEXTURE_CACHE_OFFSET));
+    return m_textureCache != UINTPTR_MAX ? m_textureCache : m_textureCache = dereference(getCocosOffset(CC_TEXTURE_CACHE_OFFSET));
 }
 
 uintptr_t OffsetManager::fmodAudioEngine() {
-    return dereference(getGDOffset(FMOD_AUDIO_ENGINE_OFFSET));
+    return m_fmodAudioEngine != UINTPTR_MAX ? m_fmodAudioEngine : m_fmodAudioEngine = dereference(getGDOffset(FMOD_AUDIO_ENGINE_OFFSET));
 }
 
 uintptr_t OffsetManager::gameLevelManager() {
-    return dereference(getGDOffset(GAME_LEVEL_MANAGER_OFFSET));
+    return m_gameLevelManager != UINTPTR_MAX ? m_gameLevelManager : m_gameLevelManager = dereference(getGDOffset(GAME_LEVEL_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::gameManager() {
-    return dereference(getGDOffset(GAME_MANAGER_OFFSET));
+    return m_gameManager != UINTPTR_MAX ? m_gameManager : m_gameManager = dereference(getGDOffset(GAME_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::gameStatsManager() {
-    return dereference(getGDOffset(GAME_STATS_MANAGER_OFFSET));
+    return m_gameStatsManager != UINTPTR_MAX ? m_gameStatsManager : m_gameStatsManager = dereference(getGDOffset(GAME_STATS_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::accountManager() {
-    return dereference(getGDOffset(GJ_ACCOUNT_MANAGER_OFFSET));
+    return m_accountManager != UINTPTR_MAX ? m_accountManager : m_accountManager = dereference(getGDOffset(GJ_ACCOUNT_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::multiplayerManager() {
-    return dereference(getGDOffset(GJ_MULTIPLAYER_MANAGER_OFFSET));
+    return m_multiplayerManager != UINTPTR_MAX ? m_multiplayerManager : m_multiplayerManager = dereference(getGDOffset(GJ_MULTIPLAYER_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::gjObjectDecoder() {
-    return dereference(getGDOffset(GJ_OBJECT_DECODER_OFFSET));
+    return m_gjObjectDecoder != UINTPTR_MAX ? m_gjObjectDecoder : m_gjObjectDecoder = dereference(getGDOffset(GJ_OBJECT_DECODER_OFFSET));
 }
 
 uintptr_t OffsetManager::googlePlayManager() {
-    return dereference(getGDOffset(GOOGLE_PLAY_MANAGER_OFFSET));
+    return m_googlePlayManager != UINTPTR_MAX ? m_googlePlayManager : m_googlePlayManager = dereference(getGDOffset(GOOGLE_PLAY_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::keybindingsManager() {
-    return dereference(getGDOffset(KEYBINDINGS_MANAGER_OFFSET));
+    return m_keybindingsManager != UINTPTR_MAX ? m_keybindingsManager : m_keybindingsManager = dereference(getGDOffset(KEYBINDINGS_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::localLevelManager() {
-    return dereference(getGDOffset(LOCAL_LEVEL_MANAGER_OFFSET));
+    return m_localLevelManager != UINTPTR_MAX ? m_localLevelManager : m_localLevelManager = dereference(getGDOffset(LOCAL_LEVEL_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::musicDownloadManager() {
-    return dereference(getGDOffset(MUSIC_DOWNLOAD_MANAGER_OFFSET));
+    return m_musicDownloadManager != UINTPTR_MAX ? m_musicDownloadManager : m_musicDownloadManager = dereference(getGDOffset(MUSIC_DOWNLOAD_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::objectDecoder() {
-    return dereference(getCocosOffset(OBJECT_DECODER_OFFSET));
+    return m_objectDecoder != UINTPTR_MAX ? m_objectDecoder : m_objectDecoder = dereference(getCocosOffset(OBJECT_DECODER_OFFSET));
 }
 
 uintptr_t OffsetManager::objectToolbox() {
-    return dereference(getGDOffset(OBJECT_TOOLBOX_OFFSET));
+    return m_objectToolbox != UINTPTR_MAX ? m_objectToolbox : m_objectToolbox = dereference(getGDOffset(OBJECT_TOOLBOX_OFFSET));
 }

@@ -68,6 +68,8 @@ $execute {
                 createAddressLabelWithCopyButton("ObjectToolbox", offsetManager->objectToolbox());
 
                 if (ImGui::Button("Close")) ImGuiCocos::get().toggle();
+                ImGui::SameLine();
+                if (ImGui::Button("Refresh")) offsetManager->refresh();
 
                 ImGui::PopFont();
             }
