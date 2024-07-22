@@ -1,5 +1,11 @@
 #include "OffsetManager.hpp"
 
+// To anyone reading this code and questioning what the hell I'm doing:
+// I'm using the preprocessor to define offsets for each singleton in the game.
+// This is because the offsets are different for each platform and architecture.
+// You might think I could just use the creator functions, but they initialize
+// the singletons if not already initialized, which is not what I want.
+
 #if defined(GEODE_IS_WINDOWS)
 
 #define ACHIEVEMENT_MANAGER_OFFSET 0x687d98
@@ -25,6 +31,7 @@
 #define LOCAL_LEVEL_MANAGER_OFFSET 0x687e58
 #define MUSIC_DOWNLOAD_MANAGER_OFFSET 0x687e60
 #define OBJECT_DECODER_OFFSET 0x1a53c0
+#define OBJECT_MANAGER_OFFSET 0x687de0
 #define OBJECT_TOOLBOX_OFFSET 0x687e68
 
 #elif defined(GEODE_IS_ANDROID32)
@@ -52,6 +59,7 @@
 #define LOCAL_LEVEL_MANAGER_OFFSET 0xa9c3dc
 #define MUSIC_DOWNLOAD_MANAGER_OFFSET 0xa9c664
 #define OBJECT_DECODER_OFFSET 0xaa0c48
+#define OBJECT_MANAGER_OFFSET 0xa9b578
 #define OBJECT_TOOLBOX_OFFSET 0xa9c4e4
 
 #elif defined(GEODE_IS_ANDROID64)
@@ -79,6 +87,7 @@
 #define LOCAL_LEVEL_MANAGER_OFFSET 0x11f77c0
 #define MUSIC_DOWNLOAD_MANAGER_OFFSET 0x11f7a90
 #define OBJECT_DECODER_OFFSET 0x11fc5a8
+#define OBJECT_MANAGER_OFFSET 0x11f6810
 #define OBJECT_TOOLBOX_OFFSET 0x11f7918
 
 #elif defined(GEODE_IS_INTEL_MAC)
@@ -106,6 +115,7 @@
 #define LOCAL_LEVEL_MANAGER_OFFSET 0x9ad4d8
 #define MUSIC_DOWNLOAD_MANAGER_OFFSET 0x9aceb8
 #define OBJECT_DECODER_OFFSET 0x9add90
+#define OBJECT_MANAGER_OFFSET 0x9ade28
 #define OBJECT_TOOLBOX_OFFSET 0x9adbc0
 
 #elif defined(GEODE_IS_ARM_MAC)
@@ -133,6 +143,7 @@
 #define LOCAL_LEVEL_MANAGER_OFFSET 0x8c7140
 #define MUSIC_DOWNLOAD_MANAGER_OFFSET 0x8c6aa0
 #define OBJECT_DECODER_OFFSET 0x8c7a60
+#define OBJECT_MANAGER_OFFSET 0x8c7b00
 #define OBJECT_TOOLBOX_OFFSET 0x8c7860
 
 #endif
@@ -227,6 +238,10 @@ uintptr_t OffsetManager::musicDownloadManager() {
 
 uintptr_t OffsetManager::objectDecoder() {
     return m_objectDecoder != UINTPTR_MAX ? m_objectDecoder : m_objectDecoder = dereference(getCocosOffset(OBJECT_DECODER_OFFSET));
+}
+
+uintptr_t OffsetManager::objectManager() {
+    return m_objectManager != UINTPTR_MAX ? m_objectManager : m_objectManager = dereference(getGDOffset(OBJECT_MANAGER_OFFSET));
 }
 
 uintptr_t OffsetManager::objectToolbox() {

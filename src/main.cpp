@@ -4,6 +4,9 @@
 #include <imgui-cocos.hpp>
 #include "OffsetManager.hpp"
 
+// ImGui Cocos is a library that initializes Dear ImGui for Cocos2d-x.
+// Special thanks to Prevter for giving me the example code to use ImGui with Cocos2d-x.
+
 static ImFont* openSans = nullptr;
 
 static void createAddressLabelWithCopyButton(const char* label, uintptr_t address) {
@@ -25,8 +28,7 @@ $execute {
         "Manager Viewer"
     });
     new EventListener([=](InvokeBindEvent* event) {
-        if (event->isDown())
-            ImGuiCocos::get().toggle();
+        if (event->isDown()) ImGuiCocos::get().toggle();
         return ListenerResult::Propagate;
     }, InvokeBindFilter(nullptr, "view-managers"_spr));
     #endif
@@ -65,6 +67,7 @@ $execute {
                 createAddressLabelWithCopyButton("LocalLevelManager", offsetManager->localLevelManager());
                 createAddressLabelWithCopyButton("MusicDownloadManager", offsetManager->musicDownloadManager());
                 createAddressLabelWithCopyButton("ObjectDecoder", offsetManager->objectDecoder());
+                createAddressLabelWithCopyButton("ObjectManager", offsetManager->objectManager());
                 createAddressLabelWithCopyButton("ObjectToolbox", offsetManager->objectToolbox());
 
                 if (ImGui::Button("Close")) ImGuiCocos::get().toggle();

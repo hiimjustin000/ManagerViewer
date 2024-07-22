@@ -5,7 +5,7 @@
         "win": "2.206",
         "mac": "2.206"
     },
-    "version": "v1.0.1",
+    "version": "v1.0.2",
     "id": "hiimjustin000.manager_viewer",
     "name": "Manager Viewer",
     "developer": "hiimjustin000",
@@ -28,7 +28,7 @@
         },
         {
             "id": "geode.devtools",
-            "version": "*",
+            "version": ">=v1.7.0",
             "importance": "recommended"
         }
     ],

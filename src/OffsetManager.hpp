@@ -2,6 +2,9 @@
 
 using namespace geode::prelude;
 
+// OffsetManager stores the offsets of the base addresses of Geometry Dash and Cocos2d-x, along with the offsets of various managers.
+// Originally, the manager offsets were not cached, but it made it run terribly on Android, so I added caching.
+
 class OffsetManager {
 private:
     inline static OffsetManager* instance = nullptr;
@@ -39,6 +42,7 @@ private:
     uintptr_t m_localLevelManager = -1;
     uintptr_t m_musicDownloadManager = -1;
     uintptr_t m_objectDecoder = -1;
+    uintptr_t m_objectManager = -1;
     uintptr_t m_objectToolbox = -1;
 public:
     static OffsetManager* get() {
@@ -70,6 +74,7 @@ public:
         m_localLevelManager = -1;
         m_musicDownloadManager = -1;
         m_objectDecoder = -1;
+        m_objectManager = -1;
         m_objectToolbox = -1;
     }
 
@@ -104,5 +109,6 @@ public:
     uintptr_t localLevelManager();
     uintptr_t musicDownloadManager();
     uintptr_t objectDecoder();
+    uintptr_t objectManager();
     uintptr_t objectToolbox();
 };
