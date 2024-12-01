@@ -4,11 +4,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-project(ManagerViewer VERSION 1.0.2)
+project(ManagerViewer VERSION 1.1.0)
 
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
-    src/OffsetManager.cpp
+    src/ModuleManager.cpp
 )
 
 if (NOT DEFINED ENV{GEODE_SDK})
@@ -19,8 +19,8 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-set(IMGUI_VERSION "v1.90.9")
-CPMAddPackage("gh:matcool/gd-imgui-cocos#09a9555")
+set(IMGUI_VERSION "v1.91.4")
+CPMAddPackage("gh:matcool/gd-imgui-cocos#8973953")
 
 target_link_libraries(${PROJECT_NAME} imgui-cocos)
 

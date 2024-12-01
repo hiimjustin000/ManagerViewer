@@ -1,16 +1,15 @@
 {
-    "geode": "3.3.0",
+    "geode": "4.0.1",
     "gd": {
-        "android": "2.206",
-        "win": "2.206",
-        "mac": "2.206"
+        "android": "2.2074",
+        "win": "2.2074",
+        "mac": "2.2074"
     },
-    "version": "v1.0.2",
+    "version": "v1.1.0",
     "id": "hiimjustin000.manager_viewer",
     "name": "Manager Viewer",
     "developer": "hiimjustin000",
     "description": "A mod that allows viewing of the addresses of manager classes.",
-    "repository": "https://github.com/hiimjustin000/ManagerViewer",
     "resources": {
         "sprites": [
             "resources/*.png"
@@ -24,7 +23,7 @@
             "id": "geode.custom-keybinds",
             "version": ">=v1.7.1",
             "importance": "required",
-            "platforms": ["win", "android"]
+            "platforms": ["win"]
         },
         {
             "id": "geode.devtools",
@@ -32,6 +31,11 @@
             "importance": "recommended"
         }
     ],
+    "links": {
+        "community": "https://discord.gg/QVKmbvBXA7",
+        "source": "https://github.com/hiimjustin000/ManagerViewer",
+        "homepage": "https://www.hiimjustin000.com"
+    },
     "tags": [
         "developer",
         "interface",

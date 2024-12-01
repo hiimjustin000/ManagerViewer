@@ -2,19 +2,14 @@
 #include <geode.custom-keybinds/include/Keybinds.hpp>
 #endif
 #include <imgui-cocos.hpp>
-#include "OffsetManager.hpp"
+#include "ModuleManager.hpp"
+
+using namespace geode::prelude;
 
 // ImGui Cocos is a library that initializes Dear ImGui for Cocos2d-x.
 // Special thanks to Prevter for giving me the example code to use ImGui with Cocos2d-x.
 
 static ImFont* openSans = nullptr;
-
-static void createAddressLabelWithCopyButton(const char* label, uintptr_t address) {
-    auto ptr = address != 0 ? fmt::format("0x{:x}", address) : "[NULL]";
-    ImGui::Text("%s: %s", label, ptr.c_str());
-    ImGui::SameLine();
-    if (ImGui::Button(fmt::format("Copy##{}", label).c_str())) clipboard::write(ptr.c_str());
-}
 
 $execute {
     #ifdef GEODE_IS_WINDOWS
@@ -28,7 +23,11 @@ $execute {
         "Manager Viewer"
     });
     new EventListener([=](InvokeBindEvent* event) {
-        if (event->isDown()) ImGuiCocos::get().toggle();
+        if (event->isDown()) {
+            auto& imgui = ImGuiCocos::get();
+            imgui.toggle();
+            if (imgui.isVisible()) ModuleManager::get()->init();
+        }
         return ListenerResult::Propagate;
     }, InvokeBindFilter(nullptr, "view-managers"_spr));
     #endif
@@ -37,42 +36,18 @@ $execute {
             openSans = ImGui::GetIO().Fonts->AddFontFromFileTTF((Mod::get()->getResourcesDir() / "opensans.ttf").string().c_str(), 20.0f);
         })
         .draw([]{
-            if (ImGui::Begin("Manager Viewer")) {
+            if (ImGui::Begin("Manager Viewer", nullptr, ImGuiWindowFlags_HorizontalScrollbar)) {
                 ImGui::PushFont(openSans);
 
-                auto offsetManager = OffsetManager::get();
-                createAddressLabelWithCopyButton("Geometry Dash Base", offsetManager->getGD());
-                createAddressLabelWithCopyButton("Cocos2d-x Base", offsetManager->getCocos());
-                ImGui::NewLine();
-                createAddressLabelWithCopyButton("AchievementManager", offsetManager->achievementManager());
-                createAddressLabelWithCopyButton("AchievementNotifier", offsetManager->achievementNotifier());
-                createAddressLabelWithCopyButton("AppDelegate", offsetManager->appDelegate());
-                createAddressLabelWithCopyButton("BitmapFontCache", offsetManager->bitmapFontCache());
-                createAddressLabelWithCopyButton("CCAnimateFrameCache", offsetManager->animateFrameCache());
-                createAddressLabelWithCopyButton("CCDirector", offsetManager->director());
-                createAddressLabelWithCopyButton("CCFileUtils", offsetManager->fileUtils());
-                createAddressLabelWithCopyButton("CCIMEDispatcher", offsetManager->imeDispatcher());
-                createAddressLabelWithCopyButton("CCShaderCache", offsetManager->shaderCache());
-                createAddressLabelWithCopyButton("CCSpriteFrameCache", offsetManager->spriteFrameCache());
-                createAddressLabelWithCopyButton("CCTextureCache", offsetManager->textureCache());
-                createAddressLabelWithCopyButton("FMODAudioEngine", offsetManager->fmodAudioEngine());
-                createAddressLabelWithCopyButton("GameLevelManager", offsetManager->gameLevelManager());
-                createAddressLabelWithCopyButton("GameManager", offsetManager->gameManager());
-                createAddressLabelWithCopyButton("GameStatsManager", offsetManager->gameStatsManager());
-                createAddressLabelWithCopyButton("GJAccountManager", offsetManager->accountManager());
-                createAddressLabelWithCopyButton("GJMultiplayerManager", offsetManager->multiplayerManager());
-                createAddressLabelWithCopyButton("GJObjectDecoder", offsetManager->gjObjectDecoder());
-                createAddressLabelWithCopyButton("GooglePlayManager", offsetManager->googlePlayManager());
-                createAddressLabelWithCopyButton("KeybindingsManager", offsetManager->keybindingsManager());
-                createAddressLabelWithCopyButton("LocalLevelManager", offsetManager->localLevelManager());
-                createAddressLabelWithCopyButton("MusicDownloadManager", offsetManager->musicDownloadManager());
-                createAddressLabelWithCopyButton("ObjectDecoder", offsetManager->objectDecoder());
-                createAddressLabelWithCopyButton("ObjectManager", offsetManager->objectManager());
-                createAddressLabelWithCopyButton("ObjectToolbox", offsetManager->objectToolbox());
+                auto moduleManager = ModuleManager::get();
+                for (auto& module : moduleManager->getModules()) {
+                    auto ptr = module.address != 0 ? fmt::format("0x{:x}", module.address) : "[NULL]";
+                    ImGui::Text("%s: %s", module.name.c_str(), ptr.c_str());
+                    ImGui::SameLine();
+                    if (ImGui::Button(fmt::format("Copy##{}", module.address).c_str())) clipboard::write(ptr);
+                }
 
-                if (ImGui::Button("Close")) ImGuiCocos::get().toggle();
-                ImGui::SameLine();
-                if (ImGui::Button("Refresh")) offsetManager->refresh();
+                if (ImGui::Button("Close")) ImGuiCocos::get().setVisible(false);
 
                 ImGui::PopFont();
             }
@@ -82,17 +57,23 @@ $execute {
 }
 
 #include <Geode/modify/MenuLayer.hpp>
-class $modify(MyMenuLayer, MenuLayer) {
+class $modify(MVMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
         auto bottomMenu = getChildByID("bottom-menu");
-        bottomMenu->addChild(CCMenuItemExt::createSpriteExtra(CircleButtonSprite::createWithSprite("MV_viewerBtn_001.png"_spr, 1.0f,
-            CircleBaseColor::Green, CircleBaseSize::MediumAlt), [](auto) {
-                ImGuiCocos::get().toggle();
-            }));
+        auto managerViewerButton = CCMenuItemSpriteExtra::create(CircleButtonSprite::createWithSprite("MV_viewerBtn_001.png"_spr, 1.0f,
+            CircleBaseColor::Green, CircleBaseSize::MediumAlt), this, menu_selector(MVMenuLayer::onManagerViewer));
+        managerViewerButton->setID("manager-viewer-button"_spr);
+        bottomMenu->addChild(managerViewerButton);
         bottomMenu->updateLayout();
 
         return true;
+    }
+
+    void onManagerViewer(CCObject*) {
+        auto& imgui = ImGuiCocos::get();
+        imgui.toggle();
+        if (imgui.isVisible()) ModuleManager::get()->init();
     }
 };
