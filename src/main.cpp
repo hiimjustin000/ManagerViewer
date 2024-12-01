@@ -17,10 +17,10 @@ $execute {
 
     BindManager::get()->registerBindable({
         "view-managers"_spr,
-        "View Managers",
-        "Toggles the manager viewer window",
+        "View Libraries",
+        "Toggles the library viewer window",
         { Keybind::create(KEY_Y, Modifier::Alt) },
-        "Manager Viewer"
+        "Library Viewer"
     });
     new EventListener([=](InvokeBindEvent* event) {
         if (event->isDown()) {
@@ -36,15 +36,17 @@ $execute {
             openSans = ImGui::GetIO().Fonts->AddFontFromFileTTF((Mod::get()->getResourcesDir() / "opensans.ttf").string().c_str(), 20.0f);
         })
         .draw([]{
-            if (ImGui::Begin("Manager Viewer", nullptr, ImGuiWindowFlags_HorizontalScrollbar)) {
+            if (ImGui::Begin("Library Viewer", nullptr, ImGuiWindowFlags_HorizontalScrollbar)) {
                 ImGui::PushFont(openSans);
 
                 auto moduleManager = ModuleManager::get();
-                for (auto& module : moduleManager->getModules()) {
+                auto& modules = moduleManager->getModules();
+                for (int i = 0; i < modules.size(); i++) {
+                    auto& module = modules[i];
                     auto ptr = module.address != 0 ? fmt::format("0x{:x}", module.address) : "[NULL]";
                     ImGui::Text("%s: %s", module.name.c_str(), ptr.c_str());
                     ImGui::SameLine();
-                    if (ImGui::Button(fmt::format("Copy##{}", module.address).c_str())) clipboard::write(ptr);
+                    if (ImGui::Button(fmt::format("Copy##{}", i).c_str())) clipboard::write(ptr);
                 }
 
                 if (ImGui::Button("Close")) ImGuiCocos::get().setVisible(false);
@@ -57,21 +59,21 @@ $execute {
 }
 
 #include <Geode/modify/MenuLayer.hpp>
-class $modify(MVMenuLayer, MenuLayer) {
+class $modify(LVMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
         auto bottomMenu = getChildByID("bottom-menu");
-        auto managerViewerButton = CCMenuItemSpriteExtra::create(CircleButtonSprite::createWithSprite("MV_viewerBtn_001.png"_spr, 1.0f,
-            CircleBaseColor::Green, CircleBaseSize::MediumAlt), this, menu_selector(MVMenuLayer::onManagerViewer));
-        managerViewerButton->setID("manager-viewer-button"_spr);
-        bottomMenu->addChild(managerViewerButton);
+        auto libraryViewerButton = CCMenuItemSpriteExtra::create(CircleButtonSprite::createWithSprite("LV_viewerBtn_001.png"_spr, 1.0f,
+            CircleBaseColor::Green, CircleBaseSize::MediumAlt), this, menu_selector(LVMenuLayer::onLibraryViewer));
+        libraryViewerButton->setID("library-viewer-button"_spr);
+        bottomMenu->addChild(libraryViewerButton);
         bottomMenu->updateLayout();
 
         return true;
     }
 
-    void onManagerViewer(CCObject*) {
+    void onLibraryViewer(CCObject*) {
         auto& imgui = ImGuiCocos::get();
         imgui.toggle();
         if (imgui.isVisible()) ModuleManager::get()->init();

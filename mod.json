@@ -7,9 +7,9 @@
     },
     "version": "v1.1.0",
     "id": "hiimjustin000.manager_viewer",
-    "name": "Manager Viewer",
+    "name": "Library Viewer",
     "developer": "hiimjustin000",
-    "description": "A mod that allows viewing of the addresses of manager classes.",
+    "description": "A mod that allows viewing of DLLs in-game.",
     "resources": {
         "sprites": [
             "resources/*.png"
